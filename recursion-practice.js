@@ -28,4 +28,25 @@ function reverseString(str, newStr=''){
         return reverseString(str.substring(0,str.length-1), newStr + str.substring(str.length-1))
     }
 }
-console.log(reverseString("Here"));
+//console.log(reverseString("Here"));
+
+//--- n(n+1)/2
+// 3 -6
+function triangularNumber(n, i=n){
+    if( i === 0 ) {
+        return n;
+    }
+    return n+1 + triangularNumber(n, i-1)/2;
+}
+
+console.log(triangularNumber(3));
+
+
+// add n to n N+1 number of times
+
+
+// iterate over 
+// for each multiply by N
+// On final divide by 2
+// find a base case
+// 
