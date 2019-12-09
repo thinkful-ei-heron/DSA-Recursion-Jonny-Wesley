@@ -6,6 +6,7 @@ function countingSheep(count) {
         return 'Another Sheep jumps over the fence';
     }
 }
+
 //console.log(countingSheep(10));
 
 function powerCalculator(x, y) {
@@ -20,6 +21,7 @@ function powerCalculator(x, y) {
         return powerCalculator(x * x, y - 1);
     }
 }
+
 //console.log(powerCalculator(10,3));
 function reverseString(str, newStr = '') {
     if (str.length === 0) {
@@ -28,6 +30,7 @@ function reverseString(str, newStr = '') {
         return reverseString(str.substring(0, str.length - 1), newStr + str.substring(str.length - 1))
     }
 }
+
 //console.log(reverseString("Here"));
 
 function triangularNumber(n) {
@@ -51,21 +54,79 @@ function stringSplitter(str, splitter, arr = []) {
         return stringSplitter(str.substring(str.indexOf(splitter) + 1), splitter, arr);
     }
 }
-//console.log(stringSplitter('02/14/15','/'));
 
-// 7 => 13
+//console.log(stringSplitter('02/14/15','/'));
 
 function fib(n) {
     if (n === 1) {
         return 1;
-    }
-    else if (n === 2) {
+    } else if (n === 2) {
         return 1;
     }
 
     return fib(n - 2) + fib(n - 1);
 }
-console.log(fib(7));
-// start at 1
-// add 1 to iteslf 2
-// add 2 to 1 
+
+//console.log(fib(7));
+
+function factorial(n) {
+    if (n <= 1) {
+        return 1
+    } else {
+        return factorial(n - 1) * n
+    }
+}
+
+//console.log(factorial(5))
+
+let mySmallMaze = [
+    [' ', ' ', ' '],
+    [' ', '*', ' '],
+    [' ', ' ', 'e']
+];
+
+let maze = [
+    [' ', ' ', ' ', '*', ' ', ' ', ' '],
+    ['*', '*', ' ', '*', ' ', '*', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', '*', '*', '*', '*', '*', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', 'e']
+];
+//
+function solveMaze(maze, loc = [0, 0], path = '') {
+
+    if (maze[loc[0]][loc[1] + 1] === '*') {
+        if (maze[loc[0]][loc[1] - 1] === 'e') {
+            return path + 'L';
+        }
+        loc[1] = loc[1] - 1;
+        return solveMaze(maze, loc, path + 'L')
+    }
+    // } else if(maze[loc[0]][loc[1] - 1] === '*') {
+    //     if(maze[loc[0]][loc[1] + 1] === 'e') {
+    //         return path + 'R';
+    //     }
+    //     loc[1] = loc[1] + 1;
+    //     return solveMaze(maze, loc, path + 'R')
+    // }
+    // if (maze[loc[0] + 1][loc[1]] === '*') {
+    //     if(maze[loc[0]][loc[1] + 1] === 'e') {
+    //         return path + 'R';
+    //     }
+    //     loc[0] = loc[0] - 1;
+    //     return solveMaze(maze, loc, path + 'U')
+    // } else {
+    //     loc[0] = loc[0] + 1;
+    //     return solveMaze(maze, loc, path + 'D')
+    // }
+}
+
+console.log(solveMaze(maze));
+
+function binaryRep(n) {
+    if (n < 0) {
+        return ''
+    }
+    let binary = n % 2;
+    return binaryRep(Math.floor(n / 2)) + binary
+}
