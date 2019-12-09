@@ -92,33 +92,34 @@ let maze = [
     [' ', '*', '*', '*', '*', '*', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', 'e']
 ];
+
 //
 function solveMaze(maze, loc = [0, 0], path = '') {
-
-    if (maze[loc[0]][loc[1] + 1] === '*') {
-        if (maze[loc[0]][loc[1] - 1] === 'e') {
-            return path + 'L';
-        }
+    if (loc[1] !== maze[0].length - 1 && maze[loc[0]][loc[1] + 1] === 'e') {
+        return path + 'R';
+    } else if (loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === 'e') {
+        return path + 'D';
+    } else if (loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === 'e') {
+        return path + 'L';
+    } else if (loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === 'e') {
+        return path + 'U';
+    }
+    if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
+        loc[1] = loc[1] + 1;
+        return solveMaze(maze, loc, path + 'R')
+    } else if (path.substring(path.length - 1) !== 'R' && loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === ' ') {
         loc[1] = loc[1] - 1;
         return solveMaze(maze, loc, path + 'L')
     }
-    // } else if(maze[loc[0]][loc[1] - 1] === '*') {
-    //     if(maze[loc[0]][loc[1] + 1] === 'e') {
-    //         return path + 'R';
-    //     }
-    //     loc[1] = loc[1] + 1;
-    //     return solveMaze(maze, loc, path + 'R')
-    // }
-    // if (maze[loc[0] + 1][loc[1]] === '*') {
-    //     if(maze[loc[0]][loc[1] + 1] === 'e') {
-    //         return path + 'R';
-    //     }
-    //     loc[0] = loc[0] - 1;
-    //     return solveMaze(maze, loc, path + 'U')
-    // } else {
-    //     loc[0] = loc[0] + 1;
-    //     return solveMaze(maze, loc, path + 'D')
-    // }
+
+
+    if (path.substring(path.length - 1) !== 'U' && loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === ' ') {
+        loc[0] = loc[0] + 1;
+        return solveMaze(maze, loc, path + 'D')
+    } else if (path.substring(path.length - 1) !== 'D' && loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === ' ') {
+        loc[0] = loc[0] - 1;
+        return solveMaze(maze, loc, path + 'U')
+    }
 }
 
 console.log(solveMaze(maze));
