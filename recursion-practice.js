@@ -92,11 +92,9 @@ let maze = [
     [' ', '*', '*', '*', '*', '*', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', 'e']
 ];
-
-
 function solveMaze(maze, loc = [0, 0], path = '', validPaths = []) {
-    if(validPaths.length > 20){
-        return validPaths;
+    if (validPaths.length > 0) {
+        return validPaths[0];
     }
     if (loc[1] !== maze[0].length - 1 && maze[loc[0]][loc[1] + 1] === 'e') {
         validPaths.push(path + 'R');
@@ -111,6 +109,7 @@ function solveMaze(maze, loc = [0, 0], path = '', validPaths = []) {
         validPaths.push(path + 'U');
         return solveMaze(maze, loc, path + 'U', validPaths);
     }
+
     if (validPaths.length === 0) {
         if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
             loc[1] = loc[1] + 1;
@@ -163,6 +162,42 @@ function solveMaze(maze, loc = [0, 0], path = '', validPaths = []) {
         }
     }
 }
+
+function solveAllMazes(maze, x=0,y=0, path = '', validPaths = []) {
+    if (validPaths.length > 3) {
+        return validPaths;
+    }
+
+    //Solutions
+    if (y !== maze[0].length - 1 && maze[x][y + 1] === 'e') {
+        validPaths.push(path + 'R');
+        return validPaths;
+    } else if (x !== maze.length - 1 && maze[x + 1][y] === 'e') {
+        validPaths.push(path + 'D');
+        return validPaths;
+    } else if (y !== 0 && maze[x][y - 1] === 'e') {
+        validPaths.push(path + 'L');
+        return validPaths;
+    } else if (x !== 0 && maze[x - 1][y] === 'e') {
+        validPaths.push(path + 'U');
+        return validPaths;
+    }
+
+
+    if (y !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[x][y + 1] === ' ') {
+        solveAllMazes(maze, x, y+1, path +'R', validPaths);
+    }
+    if (path.substring(path.length - 1) !== 'R' && y !== 0 && maze[x][y - 1] === ' ') {
+        solveAllMazes(maze, x,y-1, path + 'L', validPaths);
+    }
+    if (path.substring(path.length - 1) !== 'U' && x !== maze.length - 1 && maze[x + 1][y] === ' ') {
+        solveAllMazes(maze, x+1,y, path+'D', validPaths);
+    }
+    if (path.substring(path.length - 1) !== 'D' && x !== 0 && maze[x - 1][y] === ' ') {
+        solveAllMazes(maze, x-1,y, path+'U', validPaths);
+    }
+}
+
 
 //console.log(solveMaze(maze));
 
