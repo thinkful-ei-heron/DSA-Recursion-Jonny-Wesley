@@ -6,7 +6,7 @@ function countingSheep(count){
         return 'Another Sheep jumps over the fence';
     }
 }
-console.log(countingSheep(10));
+//console.log(countingSheep(10));
 
 function powerCalculator(x,y) {
     if(y < 0) {
@@ -20,4 +20,12 @@ function powerCalculator(x,y) {
         return powerCalculator(x * x, y-1);
     }
 }
-console.log(powerCalculator(10,3));
+//console.log(powerCalculator(10,3));
+function reverseString(str, newStr=''){
+    if(str.length === 0){
+        return newStr;
+    } else {
+        return reverseString(str.substring(0,str.length-1), newStr + str.substring(str.length-1))
+    }
+}
+console.log(reverseString("Here"));
