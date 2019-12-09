@@ -95,7 +95,12 @@ let maze = [
 //
 function solveMaze(maze, loc = [0, 0], path = '') {
 
-    if (maze[loc[0]][loc[1] + 1] === '*') {
+    if(maze[loc[0]] [loc[1]] === ' '){
+        return path + 'R';
+    }
+
+
+    if (maze[loc[0]] [loc[1] + 1] === '*') {
         if (maze[loc[0]][loc[1] - 1] === 'e') {
             return path + 'L';
         }
@@ -121,7 +126,15 @@ function solveMaze(maze, loc = [0, 0], path = '') {
     // }
 }
 
-console.log(solveMaze(maze));
+console.log(solveMaze(mySmallMaze));
+
+
+
+
+
+
+
+
 
 function binaryRep(n) {
     if (n < 0) {
