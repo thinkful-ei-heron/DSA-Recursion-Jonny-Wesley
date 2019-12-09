@@ -15,7 +15,7 @@ function powerCalculator(x,y) {
     if(y===0) {
         return 1;
     } else if(y === 1) {
-        return x
+        return x;
     } else {
         return powerCalculator(x * x, y-1);
     }
@@ -30,23 +30,25 @@ function reverseString(str, newStr=''){
 }
 //console.log(reverseString("Here"));
 
-//--- n(n+1)/2
-// 3 -6
-function triangularNumber(n, i=n){
-    if( i === 0 ) {
+function triangularNumber(n){
+    if( n === 1 ) {
         return n;
+    } else if ( n === 2) {
+        return n+1;
+    } else {
+        return n + triangularNumber(n-1);
     }
-    return n+1 + triangularNumber(n, i-1)/2;
 }
 
-console.log(triangularNumber(3));
+//console.log(triangularNumber(4));
 
-
-// add n to n N+1 number of times
-
-
-// iterate over 
-// for each multiply by N
-// On final divide by 2
-// find a base case
-// 
+function stringSplitter(str, splitter, arr=[]) {
+    if (str.indexOf(splitter) === -1 || str.length <= 0) {
+        arr.push(str);
+        return arr;
+    } else if(str.indexOf(splitter) !== -1) {
+        arr.push(str.substring(0, str.indexOf(splitter)));
+        return stringSplitter(str.substring(str.indexOf(splitter)+1), splitter, arr);
+    }
+}
+//console.log(stringSplitter('02/14/15','/'));
