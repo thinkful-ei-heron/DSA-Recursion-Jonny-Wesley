@@ -164,7 +164,7 @@ function solveMaze(maze, loc = [0, 0], path = '', validPaths = []) {
     }
 }
 
-console.log(solveMaze(maze));
+//console.log(solveMaze(maze));
 
 function anagrams(str){
     const output = [];
@@ -181,13 +181,34 @@ function anagrams(str){
         }
     }
     traverse(str);
-    return output
+    return output;
 }
-console.log(anagrams('east'))
+//console.log(anagrams('east'));
 function binaryRep(n) {
     if (n < 0) {
-        return ''
+        return '';
     }
     let binary = n % 2;
-    return binaryRep(Math.floor(n / 2)) + binary
+    return binaryRep(Math.floor(n / 2)) + binary;
 }
+
+const org = [
+    {id: 'Zuckerberg', boss: null},
+    {id: 'Schroepfer', boss: 'Zuckerberg'},
+    {id: 'Schrage', boss: 'Zuckerberg'},
+    {id: 'Sandberg', boss: 'Zuckerberg'},
+    {id: 'Bosworth', boss: 'Schroepfer'},
+    {id: 'Steve', boss: 'Bosworth'},
+    {id: 'Kyle', boss: 'Bosworth'},
+    {id: 'VanDyck', boss: 'Schrage'},
+];
+function orgChart(obj, boss) {
+    let node = {};
+    obj
+    .filter(c => c.boss == boss)
+    .forEach(c => node[c.id] = orgChart(obj, c.id));
+    return node;
+}
+console.log(
+    JSON.stringify(orgChart(org, null), null, 2)
+);
