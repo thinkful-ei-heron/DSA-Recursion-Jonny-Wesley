@@ -94,9 +94,10 @@ let maze = [
 ];
 
 //
-function solveMaze(maze, loc = [0, 0], path = '') {
+function solveMaze(maze, loc = [0, 0], path = '', validPaths=[]) {
     if (loc[1] !== maze[0].length - 1 && maze[loc[0]][loc[1] + 1] === 'e') {
-        return path + 'R';
+        validPaths.push(path+'R');
+        return solveMaze(maze, loc, path + 'R', validPaths);
     } else if (loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === 'e') {
         return path + 'D';
     } else if (loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === 'e') {
@@ -104,26 +105,61 @@ function solveMaze(maze, loc = [0, 0], path = '') {
     } else if (loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === 'e') {
         return path + 'U';
     }
-    if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
-        loc[1] = loc[1] + 1;
-        return solveMaze(maze, loc, path + 'R')
-    } else if (path.substring(path.length - 1) !== 'R' && loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === ' ') {
-        loc[1] = loc[1] - 1;
-        return solveMaze(maze, loc, path + 'L')
-    }
+    if(validPaths.length === 0) {
+        if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
+            loc[1] = loc[1] + 1;
+            return solveMaze(maze, loc, path + 'R')
+        } else if (path.substring(path.length - 1) !== 'R' && loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === ' ') {
+            loc[1] = loc[1] - 1;
+            return solveMaze(maze, loc, path + 'L')
+        }
+
+        if (path.substring(path.length - 1) !== 'U' && loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === ' ') {
+            loc[0] = loc[0] + 1;
+            return solveMaze(maze, loc, path + 'D')
+        } else if (path.substring(path.length - 1) !== 'D' && loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === ' ') {
+            loc[0] = loc[0] - 1;
+            return solveMaze(maze, loc, path + 'U')
+        }
+    } else {
+        for(let newPath of validPaths) {
+            if(newPath.charAt(path.length) !== path.substring(path.length-1)) {
+                if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
+                    loc[1] = loc[1] + 1;
+                    return solveMaze(maze, loc, path + 'R')
+                } else if (path.substring(path.length - 1) !== 'R' && loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === ' ') {
+                    loc[1] = loc[1] - 1;
+                    return solveMaze(maze, loc, path + 'L')
+                }
+            } else {
+                if (path.substring(path.length - 1) !== 'R' && loc[1] !== 0 && maze[loc[0]][loc[1] - 1] === ' ') {
+                    loc[1] = loc[1] - 1;
+                    return solveMaze(maze, loc, path + 'L')
+                } else if (loc[1] !== maze[0].length - 1 && path.substring(path.length - 1) !== 'L' && maze[loc[0]][loc[1] + 1] === ' ') {
+                    loc[1] = loc[1] + 1;
+                    return solveMaze(maze, loc, path + 'R')
+                }
+            }
 
 
-    if (path.substring(path.length - 1) !== 'U' && loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === ' ') {
-        loc[0] = loc[0] + 1;
-        return solveMaze(maze, loc, path + 'D')
-    } else if (path.substring(path.length - 1) !== 'D' && loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === ' ') {
-        loc[0] = loc[0] - 1;
-        return solveMaze(maze, loc, path + 'U')
+            if (path.substring(path.length - 1) !== 'U' && loc[0] !== maze.length - 1 && maze[loc[0] + 1][loc[1]] === ' ') {
+                loc[0] = loc[0] + 1;
+                return solveMaze(maze, loc, path + 'D')
+            } else if (path.substring(path.length - 1) !== 'D' && loc[0] !== 0 && maze[loc[0] - 1][loc[1]] === ' ') {
+                loc[0] = loc[0] - 1;
+                return solveMaze(maze, loc, path + 'U')
+            }
+        }
     }
 }
 
-console.log(solveMaze(maze));
-
+//console.log(solveMaze(maze));
+function anagrams(str, arr=[]){
+    if(str.length === 0) {
+        return arr
+    }
+}
+console.log(anagrams('Some'))
 function binaryRep(n) {
     if (n < 0) {
         return ''
