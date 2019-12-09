@@ -165,14 +165,25 @@ function solveMaze(maze, loc = [0, 0], path = '', validPaths = []) {
 }
 
 console.log(solveMaze(maze));
-function anagrams(str, arr = []) {
-    if (str.length === 0) {
-        return arr
+
+function anagrams(str){
+    const output = [];
+    function traverse(string, perm = ''){
+        const seen = new Set();
+        if (!string) {
+            output.push(perm);
+        }
+        for (let i = 0; i < string.length; i++){
+            if (!seen.has(string[i])){
+                seen.add(string[i]);
+                traverse(string.slice(0,i) + string.slice(i+1), perm + string[i]);
+            }
+        }
     }
-
-
+    traverse(str);
+    return output
 }
-//console.log(anagrams('Some'))
+console.log(anagrams('east'))
 function binaryRep(n) {
     if (n < 0) {
         return ''
